@@ -134,7 +134,7 @@
       <span class="arrow">→</span>
       <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" title="Python" />
       <span class="arrow">→</span>
-      <img src="https://www.tableau.com/themes/custom/tableau_www/logo.v2.svg" alt="Tableau" title="Tableau" />
+      <img src="https://www.svgrepo.com/show/354428/tableau-icon.svg" alt="Tableau" title="Tableau" />
     </div>
 
     <div class="section">
@@ -153,23 +153,38 @@
 
     <div class="section">
       <h2>Data</h2>
-      <p>We used a public Airbnb dataset that includes listing-level variables such as:</p>
+      <p>I used a public Airbnb dataset that includes listing-level variables such as:</p>
       <ul>
         <li><strong>review_scores_rating</strong>: Average guest rating</li>
         <li><strong>number_of_reviews</strong>: Total number of reviews</li>
-        <li><strong>availability_365</strong>: Days available per year</li>
-        <li><strong>price</strong>: Nightly price (converted to USD)</li>
+        <li><strong>price</strong>: Nightly price </li>
         <li><strong>last_review</strong>: Date of most recent review</li>
       </ul>
-      <p>The treatment variable is whether a listing had a review in the past 90 days.</p>
+      <p>I also used calendar-level variables such as:
+        <li><strong>date</strong>: Date of potential booking </li>    
+        <li><strong>available</strong>: True/False indicator for availability </li>            
+      </p>
+      <p>Overall, it is important to know that the data is a snapshot in early March. </p>
     </div>
 
     <div class="section">
       <h2>Methodology</h2>
+      <p></p>
+      <p># variables needed to be calculated:</p>
+      <ul>
+        <li><strong>booked</strong>: Total count of days where available = false in April, 2025 </li>
+        <li><strong>booked_yes</strong>: Binary (1/0) determining if booked > 0</li>
+        <li><strong>not_booked</strong>: Total count of days where available = true in April, 2025</li>
+        <li><strong>total_avail</strong>: Comined total of booked and not_booked in April, 2025 </li>
+        <li><strong>prior_booked</strong>: Count of days where available = false in March, 2025 </li>
+        <li><strong>days_since_last_review90</strong>: Binary (1/0) indicating April 1, 2025 - last_review <= 90</li>
+      </ul>
+
       <p>To control for confounding, we used <strong>propensity score matching</strong> with the following covariates:</p>
       <ul>
         <li>Review score</li>
-        <li>Number of reviews</li>
+        <li>Numer of Reviews</li>
+        <li>Prior Bookings</li>
         <li>Availability</li>
         <li>Price</li>
       </ul>
