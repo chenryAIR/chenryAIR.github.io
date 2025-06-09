@@ -123,6 +123,33 @@
         font-size: 1.1rem;
       }
     }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1em 0;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 0.6em;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f4f4f4;
+    }
+
+    caption {
+        caption-side: top;
+        font-weight: bold;
+        margin-bottom: 0.5em;
+    }
+
+    ul {
+        margin-left: 1em;
+    }
+
+
   </style>
 </head>
 <body>
@@ -170,37 +197,132 @@
     <div class="section">
       <h2>Methodology</h2>
       <p></p>
-      <p># variables needed to be calculated:</p>
+      <p>Data decisions:</p>
       <ul>
-        <li><strong>booked</strong>: Total count of days where available = false in April, 2025 </li>
-        <li><strong>booked_yes</strong>: Binary (1/0) determining if booked > 0</li>
-        <li><strong>not_booked</strong>: Total count of days where available = true in April, 2025</li>
-        <li><strong>total_avail</strong>: Comined total of booked and not_booked in April, 2025 </li>
-        <li><strong>prior_booked</strong>: Count of days where available = false in March, 2025 </li>
-        <li><strong>days_since_last_review90</strong>: Binary (1/0) indicating April 1, 2025 - last_review <= 90</li>
+        <li>Because the dataset doesn’t directly indicate when a booking has occurred, I had to infer bookings based on 
+            availability data. Specifically, I treated stretches of days where available = false as potential bookings. 
+            However, to reduce the risk of misclassifying listings that were unavailable for other reasons (e.g., the 
+            host pausing the listing or traveling) I excluded any unavailable streaks longer than 14 days.</li>
+        <li>Because the dataset is a snapshot captured in early March, it does not include bookings made after that 
+            point. To work around this limitation, I created a binary outcome variable for April 2025: listings are 
+            marked as "booked" if they have at least one unavailable day during the month. This simplifies the outcome 
+            while helping control for potential confounding, such as certain types of listings being more likely to 
+            receive early bookings, by focusing only on whether any booking occurred, rather than the total number of 
+            nights booked.</li>
       </ul>
-
+      <p></p>
+      <p>6 variables were calculated:</p>
+      <ul>
+      <li><strong>booked</strong>: Number of days the listing was unavailable (<code>available = false</code>) in April 2025</li>
+      <li><strong>booked_yes</strong>: Binary indicator (1 if <code>booked &gt; 0</code>, otherwise 0)</li>
+      <li><strong>not_booked</strong>: Number of days the listing was available (<code>available = true</code>) in April 2025</li>
+      <li><strong>total_avail</strong>: Combined total of <code>booked</code> and <code>not_booked</code> days in April 2025</li>
+      <li><strong>prior_booked</strong>: Number of days the listing was unavailable in March 2025</li>
+      <li><strong>days_since_last_review90</strong>: Binary indicator (1 if <code>last_review</code> was within 90 days of April 1, 2025)</li>
+      </ul>
+      <p></p>
       <p>To control for confounding, we used <strong>propensity score matching</strong> with the following covariates:</p>
       <ul>
-        <li>Review score</li>
-        <li>Numer of Reviews</li>
-        <li>Prior Bookings</li>
-        <li>Availability</li>
-        <li>Price</li>
+        <li>Review Score (review_scores_rating)</li>
+        <li>Number of Reviews (number_of_reviews)</li>
+        <li>Prior Bookings (prior_booked)</li>
+        <li>Availability (total_avail)</li>
+        <li>Price (price)</li>
       </ul>
       <p>We estimated the average treatment effect on bookings using matched pairs and checked balance using standardized mean differences (SMDs).</p>
     </div>
 
-    <div class="section">
-      <h2>Results</h2>
-      <p>The average treatment effect showed that listings with recent reviews had a significantly higher number of bookings. SMDs were below 0.1 for all covariates, indicating good balance between treated and control groups.</p>
-    </div>
+    <section id="results">
+    <h2>Results</h2>
 
-    <div class="section">
-      <h2>Interactive Tableau Dashboard</h2>
-      <p>Explore the treatment effects and covariate balance using the interactive dashboard below:</p>
-      <iframe src="https://public.tableau.com/views/AIRBNB_17494237882040/Dashboard1?:language=en-US&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link"></iframe>
-    </div>
+    <h3>Covariate Balance</h3>
+    <p>
+        Before matching, there were substantial differences between listings that recently received a review and those that had not. For example, listings with recent reviews had significantly more prior bookings and reviews overall, and tended to be priced lower:
+    </p>
+
+    <table>
+        <caption><strong>Covariate Means Before Matching</strong></caption>
+        <thead>
+        <tr>
+            <th>Variable</th>
+            <th>No Recent Review</th>
+            <th>Recent Review</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr><td>Prior Booked Days</td><td>4.66</td><td>8.73</td></tr>
+        <tr><td>Total Availability (April 2025)</td><td>27.10</td><td>27.99</td></tr>
+        <tr><td>Price</td><td>$475.71</td><td>$266.97</td></tr>
+        <tr><td>Review Score (Rating)</td><td>4.81</td><td>4.84</td></tr>
+        <tr><td>Number of Reviews</td><td>28.79</td><td>85.51</td></tr>
+        </tbody>
+    </table>
+
+    <p>
+        After propensity score matching, these covariates were better balanced across groups. Standardized mean differences (SMD) for all covariates fell below the common threshold of 0.1, suggesting a good match.
+    </p>
+
+    <table>
+        <caption><strong>Covariate Means After Matching</strong></caption>
+        <thead>
+        <tr>
+            <th>Variable</th>
+            <th>No Recent Review</th>
+            <th>Recent Review</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr><td>Prior Booked Days</td><td>9.02</td><td>8.73</td></tr>
+        <tr><td>Total Availability (April 2025)</td><td>27.65</td><td>27.99</td></tr>
+        <tr><td>Price</td><td>$267.90</td><td>$266.97</td></tr>
+        <tr><td>Review Score (Rating)</td><td>4.85</td><td>4.84</td></tr>
+        <tr><td>Number of Reviews</td><td>78.59</td><td>85.51</td></tr>
+        </tbody>
+    </table>
+
+    <h3>Treatment Effect Estimation</h3>
+    <p>
+        After matching, we retained <strong>10,280 listings</strong>:
+        <ul>
+        <li><strong>5,140</strong> with a recent review (treated)</li>
+        <li><strong>5,140</strong> without a recent review (control)</li>
+        </ul>
+        A logistic regression was used to estimate the effect of recent reviews on the probability of being booked in April 2025 (<code>booked_yes</code>).
+    </p>
+
+    <h4>Model Results (Logistic Regression)</h4>
+    <ul>
+        <li><strong>Recent Review Coefficient</strong>: 0.679</li>
+        <li><strong>Odds Ratio</strong>: ~1.97 (exp(0.679))</li>
+        <li><strong>p-value</strong>: &lt; 0.001 (statistically significant)</li>
+    </ul>
+
+    <h4>Estimated Risk Difference</h4>
+    <p>
+        Listings with a recent review had a <strong>15.8 percentage point higher probability</strong> of being booked in April 2025 compared to similar listings without a recent review.
+    </p>
+
+    <h3>Covariate Balance (Standardized Mean Differences)</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Covariate</th>
+            <th>SMD</th>
+            <th>Treated Mean</th>
+            <th>Control Mean</th>
+            <th>Pooled Std Dev</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr><td>Prior Booked Days</td><td>-0.050</td><td>8.73</td><td>9.02</td><td>5.78</td></tr>
+        <tr><td>Total Availability</td><td>0.055</td><td>27.99</td><td>27.65</td><td>6.28</td></tr>
+        <tr><td>Price</td><td>-0.003</td><td>266.97</td><td>267.90</td><td>292.92</td></tr>
+        <tr><td>Review Score (Rating)</td><td>-0.030</td><td>4.84</td><td>4.85</td><td>0.27</td></tr>
+        <tr><td>Number of Reviews</td><td>0.060</td><td>85.51</td><td>78.59</td><td>115.18</td></tr>
+        </tbody>
+    </table>
+    </section>
+
 
     <a href="index.html" class="back-link">← Back to Portfolio</a>
   </div>
