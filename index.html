@@ -4,37 +4,83 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Chad Henry | Data Analyst Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      background: #f4f4f4;
-      color: #333;
     }
-    header, footer {
-      background: #222;
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f9f9f9;
+      color: #222;
+      line-height: 1.6;
+    }
+    header {
+      background-color: #1a1a1a;
       color: #fff;
-      padding: 1rem;
+      padding: 1.5rem 0;
       text-align: center;
     }
-    .container {
-      max-width: 900px;
-      margin: auto;
-      padding: 2rem;
-      background: #fff;
+    header h1 {
+      font-size: 2rem;
+      margin-bottom: 0.25rem;
     }
-    h1, h2 {
+    nav {
+      margin-top: 0.5rem;
+    }
+    nav a {
+      color: #aaa;
+      text-decoration: none;
+      margin: 0 1rem;
+      font-size: 0.95rem;
+    }
+    nav a:hover {
+      color: #fff;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 0.5rem;
       color: #444;
     }
     .project {
-      margin-bottom: 2rem;
-      border-bottom: 1px solid #ccc;
-      padding-bottom: 1rem;
+      background: #fff;
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
     }
-    a {
+    .project h3 {
+      margin-bottom: 0.5rem;
+      color: #222;
+    }
+    .project p {
+      margin-bottom: 0.5rem;
+    }
+    .project a {
       color: #007acc;
+      text-decoration: none;
+    }
+    .project a:hover {
+      text-decoration: underline;
+    }
+    .contact, .resume {
+      margin-top: 2rem;
+    }
+    footer {
+      background-color: #1a1a1a;
+      color: #ccc;
+      text-align: center;
+      padding: 1rem 0;
+      margin-top: 4rem;
     }
   </style>
 </head>
@@ -42,44 +88,29 @@
   <header>
     <h1>Chad Henry</h1>
     <p>Data Analyst | GIS Specialist | Tableau & SQL</p>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#resume">Resume</a>
+      <a href="#contact">Contact</a>
+    </nav>
   </header>
-  <div class="container">
-    <section>
+
+  <main class="container">
+    <section id="about">
       <h2>About Me</h2>
-      <p>I’m a data analyst with 5+ years of experience in GIS, analytics, and public-sector data. I specialize in transforming complex data into actionable insights using SQL, Python, and Tableau.</p>
+      <p>I’m a data analyst with 5+ years of experience working with public-sector and nonprofit datasets. I specialize in GIS, Tableau, and Python, with a strong background in building dashboards, automating workflows, and deriving insights from large-scale education and workforce data.</p>
     </section>
-    <section>
+
+    <section id="projects">
       <h2>Projects</h2>
-      
+
       <div class="project">
-        <h3>🎯 Airbnb Booking Analysis</h3>
-        <p>Used propensity score matching to estimate the effect of recent reviews on booking rates. Visualized results in Tableau.</p>
-        <p><strong>Tools:</strong> Python, pandas, Tableau, statsmodels</p>
+        <h3>📊 Airbnb Booking Propensity Score Analysis</h3>
+        <p>Estimated the treatment effect of recent reviews on Airbnb bookings using Python and visualized results in Tableau.</p>
+        <p><strong>Tools:</strong> Python, pandas, statsmodels, Tableau</p>
         <a href="https://public.tableau.com/views/AIRBNB_174942378" target="_blank">View Dashboard</a>
       </div>
 
       <div class="project">
-        <h3>🗺️ GIS Food Desert Mapping</h3>
-        <p>Identified underserved neighborhoods using Census + USDA data and built an ArcGIS Online dashboard for stakeholders.</p>
-        <p><strong>Tools:</strong> ArcGIS Pro, ArcGIS Online, Survey123</p>
-        <a href="#">View Dashboard</a>
-      </div>
-
-      <div class="project">
-        <h3>📊 SQL Revenue KPI Dashboard</h3>
-        <p>Created an interactive dashboard showing revenue and % change by quarter using PostgreSQL and Tableau.</p>
-        <a href="#">View Analysis</a>
-      </div>
-    </section>
-
-    <section>
-      <h2>Resume & Contact</h2>
-      <p><a href="mailto:youremail@example.com">youremail@example.com</a> | <a href="https://www.linkedin.com/in/yourprofile">LinkedIn</a></p>
-      <a href="Chad_Henry_Resume.pdf" download>Download Resume</a>
-    </section>
-  </div>
-  <footer>
-    <p>&copy; 2025 Chad Henry</p>
-  </footer>
-</body>
-</html>
+        <h3>🗺️ GIS Dashboard for Food Deserts
