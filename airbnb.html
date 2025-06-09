@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Airbnb Review Analysis | Chad Henry</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f9f9f9;
+      color: #222;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    h1, h2 {
+      color: #1a1a1a;
+    }
+    h1 {
+      margin-bottom: 1rem;
+    }
+    a {
+      color: #007acc;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .section {
+      margin-bottom: 2rem;
+    }
+    iframe {
+      width: 100%;
+      height: 600px;
+      border: none;
+      margin-top: 1rem;
+    }
+    .back-link {
+      margin-top: 2rem;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Airbnb Review Analysis</h1>
+
+    <div class="section">
+      <h2>Background</h2>
+      <p>Many Airbnb listings rely on recent reviews to attract bookings, but it’s unclear whether newer reviews actually drive more reservations. This project estimates the effect of recent reviews on booking outcomes using observational data from Airbnb.</p>
+    </div>
+
+    <div class="section">
+      <h2>Data</h2>
+      <p>We used a public Airbnb dataset that includes listing-level variables such as:</p>
+      <ul>
+        <li><strong>review_scores_rating</strong>: Average guest rating</li>
+        <li><strong>number_of_reviews</strong>: Total number of reviews</li>
+        <li><strong>availability_365</strong>: Days available per year</li>
+        <li><strong>price</strong>: Nightly price (converted to USD)</li>
+        <li><strong>last_review</strong>: Date of most recent review</li>
+      </ul>
+      <p>The treatment variable is whether a listing had a review in the past 90 days.</p>
+    </div>
+
+    <div class="section">
+      <h2>Methodology</h2>
+      <p>To control for confounding, we used <strong>propensity score matching</strong> with the following covariates:</p>
+      <ul>
+        <li>Review score</li>
+        <li>Number of reviews</li>
+        <li>Availability</li>
+        <li>Price</li>
+      </ul>
+      <p>We estimated the average treatment effect on bookings using matched pairs and checked balance using standardized mean differences (SMDs).</p>
+    </div>
+
+    <div class="section">
+      <h2>Results</h2>
+      <p>The average treatment effect showed that listings with recent reviews had a significantly higher number of bookings. SMDs were below 0.1 for all covariates, indicating good balance between treated and control groups.</p>
+    </div>
+
+    <div class="section">
+      <h2>Interactive Tableau Dashboard</h2>
+      <p>The dashboard below lets you explore the covariate balance and treatment effects interactively.</p>
+      <iframe src="https://public.tableau.com/views/AIRBNB_174942378"></iframe>
+    </div>
+
+    <a href="index.html" class="back-link">← Back to Portfolio</a>
+  </div>
+</body>
+</html>
