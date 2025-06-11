@@ -83,16 +83,25 @@
       border-radius: 4px;
     }
 
-    .back-link {
-      display: inline-block;
-      margin-top: 1.5rem;
-      color: #555;
-      font-size: 0.95rem;
+    .link-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 2rem;
+      flex-wrap: wrap;
     }
 
-    .back-link:hover {
+    .link-row .back-link {
+      font-size: 0.95rem;
+      color: #555;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .link-row .back-link:hover {
       color: var(--accent);
     }
+
 
     .tools-used {
       display: flex;
@@ -157,12 +166,13 @@
     <h1>Airbnb Review Analysis</h1>
 
     <div class="tools-used">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original-wordmark.svg" alt="SQL" title="SQL" />
+      <img src="https://www.svgrepo.com/show/255832/sql.svg" alt="SQL" title="SQL" />
       <span class="arrow">→</span>
       <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" title="Python" />
       <span class="arrow">→</span>
       <img src="https://www.svgrepo.com/show/354428/tableau-icon.svg" alt="Tableau" title="Tableau" />
     </div>
+
 
     <div class="section">
       <h2>Why This Project?</h2>
@@ -232,7 +242,7 @@
       <p>We estimated the average treatment effect on bookings using matched pairs and checked balance using standardized mean differences (SMDs).</p>
     </div>
 
-    <div class="section" id="section"></div>
+    <div class="section" id="section">
     <h2>Results</h2>
 
     <h3>Covariate Balance</h3>
@@ -323,8 +333,13 @@
     </table>
     </section>
 
-
+  <div class="link-row">
     <a href="index.html" class="back-link">← Back to Portfolio</a>
+    <a href="https://public.tableau.com/app/profile/chad.henry7289/viz/AIRBNB_17494237882040/AirbnbDashboard" target="_blank" class="back-link">Tableau Dashboard →</a>
   </div>
+
+    
+  </div>
+  
 </body>
 </html>
