@@ -61,57 +61,89 @@
     }
 
     .project-card {
-      background: #ffffff;
-      border: 1px solid #ddd;
-      border-left: 4px solid #007acc;
-      padding: 1.5rem;
-      border-radius: 8px;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      overflow: hidden;
       margin-bottom: 2rem;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .project-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
     }
 
-    .project-card h3 {
+    .project-thumbnail {
+      width: 250px;
+      height: 160px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .project-content {
+      padding: 1.25rem 1.5rem;
+      flex: 1;
+    }
+
+    .project-content h3 {
       color: #007acc;
-      
+      margin-bottom: 0.4rem;
+      font-size: 1.25rem;
     }
 
-    .project-card .ind {
-      padding-left: 1rem;
-    }
-
-    .project-card .subtitle {
+    .project-content .subtitle {
       color: #555;
       margin-bottom: 1rem;
-      margin-top: -0.5rem;
       font-size: 0.95rem;
-      padding-left: 1rem;
     }
 
-    .project-card ul {
-      padding-left: 2.7rem;
-      margin-bottom: 1rem;
+    .project-content ul {
+      margin: 0 0 1rem 1.2rem;
+      padding-left: 0;
     }
 
-    .project-card li {
+    .project-content li {
       margin-bottom: 0.4rem;
     }
 
+    .project-content .tools,
+    .project-content .recommendation {
+      font-size: 0.9rem;
+      color: #444;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.9rem;
+      margin-top: 1rem;
+    }
+
     .project-link {
-      display: inline-block;
-      margin-top: 0.5rem;
       color: #007acc;
-      font-weight: 600;
       text-decoration: none;
+      font-weight: 600;
     }
 
     .project-link:hover {
       text-decoration: underline;
+    }
+
+    @media (max-width: 700px) {
+      .project-card {
+        flex-direction: column;
+      }
+
+      .project-thumbnail {
+        width: 100%;
+        height: auto;
+      }
     }
 
     .contact, .resume {
@@ -151,30 +183,31 @@
 
       <!-- Airbnb Project Card -->
       <div class="project-card">
-        <h3>Airbnb Booking Analysis and Visualization</h3>
-        <p class="subtitle">Measured how recent reviews affect booking rates using SQL, Python, and Tableau.</p>
-        <ul>
-          <li>Built end-to-end analysis using SQL, Python, and Tableau</li>
-          <li>Created a booking measure from raw availability data</li>
-          <li>Matched listings to reduce bias and compare fairly</li>
-          <li>Found listings with recent reviews were <strong>15.8% more likely</strong> to be booked</li>
-        </ul>
-        <div class = "ind">Tools: SQL, Python (pandas, statsmodels), Tableau</div>
-        <div class = "ind">Recommendation: Encourage guests to leave reviews. Recent reviews make a measurable difference.</div>
-        </p>
-        <p><a class="project-link" href="airbnb.html" target="_blank">View Full Project →</a></p>
-        <p>Jump to
-          <a class="project-link" href="ChadHenryPortfolio/Airbnb/Airbnb_Data_Prep.sql" target="_blank">SQL Code →</a>
-          <a class="project-link" href="ChadHenryPortfolio/Airbnb/Airbnb_regression.py" target="_blank">Python Code →</a>
-          <a class="project-link" href="https://public.tableau.com/app/profile/chad.henry7289/viz/AIRBNB_17494237882040/AirbnbDashboard" target="_blank">Tableau Dashboard →</a>
-        </p>
-      </div> 
+        <img src="airbnb.png" alt="Airbnb dashboard thumbnail" class="project-thumbnail">
+        <div class="project-content">
+          <h3>Airbnb Booking Analysis and Visualization</h3>
+          <p class="subtitle">Measured how recent reviews affect booking rates using SQL, Python, and Tableau.</p>
+          <ul>
+            <li>Built end-to-end analysis using SQL, Python, and Tableau</li>
+            <li>Created a booking measure from raw availability data</li>
+            <li>Matched listings to reduce bias and compare fairly</li>
+            <li>Found listings with recent reviews were <strong>15.8% more likely</strong> to be booked</li>
+          </ul>
+          <div class="tools">Tools: SQL, Python (pandas, statsmodels), Tableau</div>
+          <div class="recommendation">Recommendation: Encourage guests to leave reviews. Recent reviews make a measurable difference.</div>
+          <div class="project-links">
+            <a class="project-link" href="airbnb.html" target="_blank">View Full Project →</a>
+            <a class="project-link" href="ChadHenryPortfolio/Airbnb/Airbnb_Data_Prep.sql" target="_blank">SQL Code →</a>
+            <a class="project-link" href="ChadHenryPortfolio/Airbnb/Airbnb_regression.py" target="_blank">Python Code →</a>
+            <a class="project-link" href="https://public.tableau.com/app/profile/chad.henry7289/viz/AIRBNB_17494237882040/AirbnbDashboard" target="_blank">Tableau Dashboard →</a>
+          </div>
+        </div>
+      </div>
 
-      <!-- Add more project cards below -->
-    </section><p>
+    </section>
 
     <section id="resume">
-      <h2>Resume</h2>|
+      <h2>Resume</h2>
       <p><a href="Chad_Henry_Resume.pdf" download>Download Resume (PDF)</a></p>
     </section>
 
@@ -190,7 +223,3 @@
   </footer>
 </body>
 </html>
-
-
-      <div class="project">
-        <h3>🗺️ GIS Dashboard for Food Deserts
