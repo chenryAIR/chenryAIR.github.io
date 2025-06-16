@@ -235,12 +235,12 @@
       <p></p>
       <p>6 variables were calculated:</p>
       <ul>
-      <li><strong>booked</strong>: Number of days the listing was unavailable (<code>available = false</code>) in April 2025</li>
-      <li><strong>booked_yes</strong>: Binary indicator (1 if <code>booked &gt; 0</code>, otherwise 0)</li>
-      <li><strong>not_booked</strong>: Number of days the listing was available (<code>available = true</code>) in April 2025</li>
-      <li><strong>total_avail</strong>: Combined total of <code>booked</code> and <code>not_booked</code> days in April 2025</li>
+      <li><strong>booked</strong>: Number of days the listing was unavailable (available = false) in April 2025</li>
+      <li><strong>booked_yes</strong>: Binary indicator (1 if booked &gt; 0, otherwise 0)</li>
+      <li><strong>not_booked</strong>: Number of days the listing was available (available = true) in April 2025</li>
+      <li><strong>total_avail</strong>: Combined total of booked and not_booked days in April 2025</li>
       <li><strong>prior_booked</strong>: Number of days the listing was unavailable in March 2025</li>
-      <li><strong>days_since_last_review90</strong>: Binary indicator (1 if <code>last_review</code> was within 90 days of April 1, 2025)</li>
+      <li><strong>days_since_last_review90</strong>: Binary indicator (1 if last_review was within 90 days of April 1, 2025)</li>
       </ul>
       <p></p>
       <p>To control for confounding, we used <strong>propensity score matching</strong> with the following covariates:</p>
@@ -304,12 +304,7 @@
 
     <h3>Treatment Effect Estimation</h3>
     <p>
-        After matching, we retained <strong>10,280 listings</strong>:
-        <ul>
-        <li><strong>5,140</strong> with a recent review (treated)</li>
-        <li><strong>5,140</strong> without a recent review (control)</li>
-        </ul>
-        A logistic regression was used to estimate the effect of recent reviews on the probability of being booked in April 2025 (<code>booked_yes</code>).
+        A logistic regression was used to estimate the effect of recent reviews on the probability of being booked in April 2025 (booked_yes).
     </p>
 
     <h4>Model Results (Logistic Regression)</h4>
