@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Airbnb Review Analysis | Chad Henry</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent: #007acc;
+      --bg-light: #f9f9f9;
+      --text-dark: #1a1a1a;
+      --card-bg: #ffffff;
+      --border: #e0e0e0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      line-height: 1.7;
+      padding-bottom: 4rem;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--accent);
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 1.3rem;
+      margin-bottom: 0.75rem;
+      color: var(--text-dark);
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 0.3rem;
+    }
+
+    p {
+      margin-bottom: 1rem;
+    }
+
+    ul {
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .section {
+      background-color: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      margin-bottom: 2rem;
+    }
+
+    iframe {
+      width: 100%;
+      height: 600px;
+      border: 1px solid var(--border);
+      margin-top: 1rem;
+      border-radius: 4px;
+    }
+
+    .link-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .link-row .back-link {
+      font-size: 0.95rem;
+      color: #555;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .link-row .back-link:hover {
+      color: var(--accent);
+    }
+
+    .project-link {
+      display: inline-block;
+      color: #007acc;
+      font-weight: 600;
+      text-decoration: none;
+      align-items: center;
+    }
+
+    .tools-used {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2rem;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .tools-used img {
+      width: 50px;
+      height: auto;
+      filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.1));
+    }
+
+    .tools-used .arrow {
+      font-size: 1.5rem;
+      color: #555;
+      margin: 0 0.2rem;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+      h2 {
+        font-size: 1.1rem;
+      }
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1em 0;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 0.6em;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f4f4f4;
+    }
+
+    caption {
+        caption-side: top;
+        font-weight: bold;
+        margin-bottom: 0.5em;
+    }
+
+    ul {
+        margin-left: 1em;
+    }
+
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Multi-arm A/B Test for 3 Fast Food Promotions</h1>
+
+    <div class="tools-used">
+      <img src="https://www.svgrepo.com/show/255832/sql.svg" alt="SQL" title="SQL" />
+      <span class="arrow">→</span>
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" title="Python" />
+      <span class="arrow">→</span>
+      <img src="https://www.svgrepo.com/show/354428/tableau-icon.svg" alt="Tableau" title="Tableau" />
+    </div>
+
+    <div class="tools-used">
+      <a class="project-link" href="https://github.com/chenryAIR/ChadHenryPortfolio/blob/main/Airbnb/Airbnb_Data_Prep.sql" target="_blank">SQL Code</a> |
+      <a class="project-link" href="https://github.com/chenryAIR/ChadHenryPortfolio/blob/main/Airbnb/Airbnb_regression.py" target="_blank">Python Code</a> |
+      <a class="project-link" href="https://public.tableau.com/app/profile/chad.henry7289/viz/AIRBNB_17494237882040/AirbnbDashboard" target="_blank">Dashboard</a>
+    </div>
+
+    <div class="section">
+      <h2>Why This Project?</h2>
+      <p>
+        Retail data often comes in weekly panel format with uneven performance across locations. This project mirrors real-world business experimentation where you need to compare promotions while accounting for store-level differences and repeated measures. It gave me the opportunity to demonstrate proper handling of clustered data, time structure, and model robustness.
+      </p>
+    </div>
+
+
+    <div class="section">
+      <h2>Methodology</h2>
+      <p></p>
+
+        <p>
+            Before estimating the effect of each promotion on weekly sales, I conducted a series of data checks to ensure the validity of the analysis.
+        </p>
+
+        <h3>Data Structure and Unit of Analysis</h3>
+        <p>
+            The dataset included four weeks of sales data per store, with each store randomly assigned to one of three promotional conditions. 
+            The unit of analysis was the <strong>store-week</strong>, resulting in repeated observations per store. 
+            To account for this, I used <strong>clustered standard errors at the store level</strong> in all regression models.
+        </p>
+
+        <h3>Randomization and Covariate Balance</h3>
+        <p>
+            To confirm that the promotion assignment was successfully randomized, I checked:
+            <ul>
+            <li>Group sizes and their distribution across market sizes (via value_counts and pd.crosstab)</li>
+            <li>Balance on store age using group means and <strong>standardized mean differences (SMDs)</strong> between treatment groups</li>
+            </ul>
+            All SMDs were below 0.2 except for Promo 3, which had a slightly older average store age, suggesting only mild imbalance.
+        </p>
+
+        <h3>Exploratory Analysis</h3>
+        <p>
+            I explored the relationship between potential covariates and weekly sales:
+            <ul>
+            <li>Calculated <strong>Pearson correlation</strong> between store age and sales</li>
+            <li>Created <strong>scatterplots</strong> and <strong>boxplots</strong> to assess distribution and skew</li>
+            <li>Plotted <strong>sales over time</strong> by week and promotion group to assess time trends</li>
+            </ul>
+        </p>
+
+        <h3>Outlier Detection and Removal</h3>
+        <p>
+            Using the <strong>interquartile range (IQR)</strong> method, I identified and removed extreme sales values within each promotion group. 
+            This reduced the influence of outliers and improved the symmetry of the outcome distribution.
+        </p>
+
+        <h3>Outcome Transformation</h3>
+        <p>
+            To account for right-skew in sales, I applied a <strong>log transformation</strong> using log1p(SalesInThousands). 
+            This stabilized variance and reduced the impact of high-end values on model results.
+        </p>
+
+        <h3>Modeling Approach</h3>
+        <p>
+            I ran a series of <strong>OLS regression models</strong>, progressively adjusting for:
+            <ul>
+            <li>Promotion group (categorical)</li>
+            <li>Store age (continuous)</li>
+            <li>Market size (categorical)</li>
+            <li>Week (categorical, in exploratory models)</li>
+            </ul>
+            Standard errors were clustered by store to account for within-store correlation. 
+            I compared models with and without outliers, and with both raw and log-transformed outcomes, to assess the robustness of results.
+        </p>
+    </div>
+
+    <div class="section" id="section">
+    <h2>Results</h2>
+    <p>
+        I tested the impact of three promotional strategies on weekly sales using a series of OLS regression models. 
+        Models included controls for market size and store age, and used <strong>clustered standard errors</strong> to account for repeated measures within each store. 
+        Results were evaluated with and without outliers, and using both raw and log-transformed versions of the outcome variable.
+    </p>
+
+    <h3>Primary Findings</h3>
+    <ul>
+        <li><strong>Promotion 2</strong> consistently and significantly <span style="color:red;">reduced sales</span> compared to Promotion 1 across all model specifications.</li>
+        <li><strong>Promotion 3</strong> showed <em>no statistically significant difference</em> from Promotion 1 in any model.</li>
+        <li><strong>Market size</strong> was a strong predictor of sales: stores in medium and small markets earned significantly less than those in large markets.</li>
+        <li><strong>Store age</strong> did not have a meaningful impact on weekly sales.</li>
+    </ul>
+
+    <h3>Effect Sizes</h3>
+    <p>
+        In the final model using <strong>log-transformed sales without outliers</strong>:
+        <ul>
+        <li>Promotion 2 reduced weekly sales by approximately <strong>20%</strong> compared to Promotion 1 (p &lt; 0.001).</li>
+        <li>Promotion 3 resulted in a non-significant change of ~2.6% lower sales.</li>
+        <li>Stores in medium markets saw ~30% lower sales than those in large markets; small market stores earned ~10% less.</li>
+        </ul>
+    </p>
+
+    <h3>Robustness Checks</h3>
+    <p>
+        Results were consistent across:
+        <ul>
+        <li>Raw sales and log-transformed sales</li>
+        <li>Models with and without outlier removal</li>
+        <li>Models including and excluding week fixed effects (no evidence of time trends)</li>
+        </ul>
+        Although residuals showed mild non-normality and some autocorrelation (Durbin-Watson &lt; 1), the use of clustered standard errors addressed these issues.
+    </p>
+
+    <h3>Visualization</h3>
+    <p>
+        Plots of weekly sales over time confirmed that promotion effects were stable across the 4-week period. 
+        Histograms and boxplots showed a right-skewed distribution of sales, justifying the use of a log transformation. 
+        Outliers identified via the IQR method were primarily concentrated in smaller markets and higher sales values.
+    </p>
+
+  <div class="link-row">
+    <a href="index.html" class="back-link">← Back to Portfolio</a>
+    <a href="https://public.tableau.com/app/profile/chad.henry7289/viz/FastFoodPromotions/FastFoodDashboard" target="_blank" class="back-link">Tableau Dashboard →</a>
+  </div>
+
+    
+  </div>
+  
+</body>
+</html>
